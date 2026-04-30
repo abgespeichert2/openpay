@@ -3,7 +3,7 @@
 Base URL for local development:
 
 ```txt
-http://localhost:3000
+https://pay.abgespeichert.com
 ```
 
 All API success responses return HTTP `200`.
@@ -82,7 +82,7 @@ Response:
 cURL:
 
 ```bash
-curl -X POST "http://localhost:3000/api/payments/create" \
+curl -X POST "https://pay.abgespeichert.com/api/payments/create" \
   -H "Content-Type: application/json" \
   -d '{
     "recipient": "7WP1UFKe3LmXLvmaXxT9JXonj9877p6xgNh8JZeoPQMb",
@@ -170,7 +170,7 @@ Response:
 cURL:
 
 ```bash
-curl "http://localhost:3000/api/payments/a1b2c3d4e5f6/status"
+curl "https://pay.abgespeichert.com/api/payments/a1b2c3d4e5f6/status"
 ```
 
 ## Payment Receipt
@@ -213,7 +213,7 @@ Response:
 cURL:
 
 ```bash
-curl "http://localhost:3000/api/payments/a1b2c3d4e5f6/receipt"
+curl "https://abgespeichert.com/api/payments/a1b2c3d4e5f6/receipt"
 ```
 
 ## Public Payment Page
