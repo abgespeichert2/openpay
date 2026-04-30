@@ -1,15 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { PublicPaymentStatusResponse } from "@/lib/payments";
-import {
-  AmountSection,
-  Credits,
-  PaymentHeader,
-  PaymentSkeleton,
-  RecipientAddress,
-  StatusTimeline,
-} from "./components";
+import type { PublicPaymentStatusResponse } from "@/lib/payment/types";
+import { Amount } from "./amount";
+import { Credits } from "./credits";
+import { Header } from "./header";
+import { Recipient } from "./recipient";
+import { Skeleton } from "./skeleton";
+import { getThemeStyle } from "./theme";
+import { Timeline } from "./timeline";
 
 const POLL_INTERVAL_MS = 2_000;
 
@@ -86,7 +85,7 @@ export function PaymentStatusPanel({ identifier }: PaymentStatusPanelProps) {
   if (!paymentStatus) {
     return (
       <>
-        <PaymentSkeleton />
+        <Skeleton />
         {error ? (
           <p className="fixed bottom-6 left-1/2 w-[min(calc(100%-2.5rem),28rem)] -translate-x-1/2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-center text-xs text-amber-900">
             {error}
@@ -105,28 +104,41 @@ export function PaymentStatusPanel({ identifier }: PaymentStatusPanelProps) {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-5 py-10">
+    <main
+      className="flex min-h-screen items-center justify-center px-5 py-10"
+      style={{
+        ...getThemeStyle(paymentStatus.meta.theme),
+        backgroundColor: "var(--payment-background-page)",
+      }}
+    >
       <div className="w-full max-w-md">
-        <PaymentHeader
+        <Header
           name={paymentStatus.meta.name}
           description={paymentStatus.meta.description}
+          network={paymentStatus.network}
           onCancel={
             paymentStatus.meta.redirect?.cancelled ? cancelPayment : undefined
           }
         />
 
-        <section className="rounded-lg border border-stone-300 bg-white p-4">
-          <AmountSection
+        <section
+          className="rounded-lg border p-4"
+          style={{
+            backgroundColor: "var(--payment-background-box)",
+            borderColor: "var(--payment-outline-box)",
+          }}
+        >
+          <Amount
             amount={paymentStatus.payment.amount}
             balanceSolana={paymentStatus.balance.solana}
           />
 
-          <RecipientAddress
+          <Recipient
             address={paymentStatus.address}
             onCopyError={setError}
           />
 
-          <StatusTimeline status={paymentStatus.status} />
+          <Timeline status={paymentStatus.status} />
 
           {error ? (
             <p className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-3 text-center text-xs text-amber-900">

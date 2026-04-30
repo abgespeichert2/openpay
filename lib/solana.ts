@@ -7,7 +7,7 @@ import {
   SystemProgram,
   Transaction,
 } from "@solana/web3.js";
-import type { PaymentNetwork, StoredPayment } from "@/lib/payments";
+import type { PaymentNetwork, StoredPayment } from "@/lib/payment/types";
 
 const COMMITMENT: Commitment = "confirmed";
 const FALLBACK_TRANSFER_FEE_LAMPORTS = 5_000;
@@ -99,10 +99,12 @@ async function estimateTransferFeeLamports(
   fromPublicKey: PublicKey,
   toPublicKey: PublicKey,
   blockhash: string,
+  lastValidBlockHeight: number,
 ): Promise<number> {
   const transaction = new Transaction({
     feePayer: fromPublicKey,
-    recentBlockhash: blockhash,
+    blockhash,
+    lastValidBlockHeight,
   }).add(
     SystemProgram.transfer({
       fromPubkey: fromPublicKey,
@@ -195,6 +197,7 @@ export async function movePaymentBalanceToRecipient(
     source.publicKey,
     recipient,
     latestBlockhash.blockhash,
+    latestBlockhash.lastValidBlockHeight,
   );
   const movedLamports = balanceLamports - feeLamports;
 
@@ -204,7 +207,8 @@ export async function movePaymentBalanceToRecipient(
 
   const transaction = new Transaction({
     feePayer: source.publicKey,
-    recentBlockhash: latestBlockhash.blockhash,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
   }).add(
     SystemProgram.transfer({
       fromPubkey: source.publicKey,
