@@ -37,7 +37,6 @@ export type {
   PaymentMeta,
   PaymentNetwork,
   PaymentStatus,
-  PaymentTheme,
   PublicPaymentStatusResponse,
   StoredPayment,
 } from "@/lib/payment/types";

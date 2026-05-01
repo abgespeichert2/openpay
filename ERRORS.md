@@ -2,7 +2,7 @@
 
 All API errors return HTTP `400`:
 
-`ERR_INVALID_REQUEST_00` - Invalid request body, field type, network, recipient, meta, redirect URL, theme color, amount value, or amount change.
+`ERR_INVALID_REQUEST_00` - Invalid request body, field type, network, recipient, meta, redirect URL, amount value, or amount change.
 
 `ERR_INVALID_JSON_00` - Request body is not valid JSON.
 

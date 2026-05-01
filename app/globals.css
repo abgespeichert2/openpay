@@ -3,14 +3,51 @@
 :root {
   --background: #f6f5f1;
   --foreground: #171717;
+  --surface: #ffffff;
+  --field: #fafaf9;
+  --field-hover: #f5f5f4;
+  --border: #d6d3d1;
+  --border-soft: #e7e5e4;
+  --border-hover: #a8a29e;
+  --text-primary: #0c0a09;
+  --text-secondary: #78716c;
+  --text-inverted: #ffffff;
+  --skeleton: #e7e5e4;
+  --skeleton-field: #f5f5f4;
+  --status-waiting: #d6d3d1;
+  --status-done: #10b981;
+  --price-down: #059669;
+  --price-up: #dc2626;
+  --warning-background: #fffbeb;
+  --warning-border: #fcd34d;
+  --warning-text: #78350f;
   color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #10100f;
+    --foreground: #f5f5f4;
+    --surface: #181817;
+    --field: #222220;
+    --field-hover: #2b2a27;
+    --border: #3b3935;
+    --border-soft: #2d2b28;
+    --border-hover: #57534e;
+    --text-primary: #f5f5f4;
+    --text-secondary: #a8a29e;
+    --text-inverted: #10100f;
+    --skeleton: #2d2b28;
+    --skeleton-field: #222220;
+    --status-waiting: #57534e;
+    --status-done: #22c55e;
+    --price-down: #22c55e;
+    --price-up: #f87171;
+    --warning-background: #2b2111;
+    --warning-border: #a16207;
+    --warning-text: #fef3c7;
+    color-scheme: dark;
+  }
 }
 
 * {
@@ -26,6 +63,7 @@ body {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 button,
@@ -36,8 +74,8 @@ select {
 }
 
 ::selection {
-  background: #171717;
-  color: #ffffff;
+  background: var(--text-primary);
+  color: var(--text-inverted);
 }
 
 @keyframes fade-in {

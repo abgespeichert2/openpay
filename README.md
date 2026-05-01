@@ -30,6 +30,8 @@ Creates a payment order, allocates a short identifier, creates a new local Solan
 
 `amount.value` is the SOL amount to be paid. The API fetches the current SOL/USD price and stores `payment.amount.notional` for display. `amount.change` is optional and must be between `-1` and `1`; for example `-0.2` displays as `-20%`.
 
+Request:
+
 ```json
 {
   "recipient": "7WP1UFKe3LmXLvmaXxT9JXonj9877p6xgNh8JZeoPQMb",
@@ -40,19 +42,6 @@ Creates a payment order, allocates a short identifier, creates a new local Solan
     "redirect": {
       "finished": "https://example.com/finished",
       "cancelled": "https://example.com/cancelled"
-    },
-    "theme": {
-      "background-page": "#08111f",
-      "background-box": "#0f1f36",
-      "background-field": "#162b49",
-      "status-waiting": "#4b607a",
-      "status-done": "#38bdf8",
-      "price-down": "#22c55e",
-      "price-up": "#ef4444",
-      "outline-box": "#294566",
-      "outline-field": "#355578",
-      "text-primary": "#e8f3ff",
-      "text-secondary": "#9bb4d0"
     }
   },
   "amount": {
@@ -89,20 +78,7 @@ curl -X POST "https://pay.abgespeichert.com/api/payments/create" \
     "network": "dev",
     "meta": {
       "name": "Payment 123",
-      "description": "This is a test payment.",
-      "theme": {
-        "background-page": "#08111f",
-        "background-box": "#0f1f36",
-        "background-field": "#162b49",
-        "status-waiting": "#4b607a",
-        "status-done": "#38bdf8",
-        "price-down": "#22c55e",
-        "price-up": "#ef4444",
-        "outline-box": "#294566",
-        "outline-field": "#355578",
-        "text-primary": "#e8f3ff",
-        "text-secondary": "#9bb4d0"
-      }
+      "description": "This is a test payment."
     },
     "amount": {
       "value": 0.3,
@@ -132,19 +108,6 @@ Response:
     "redirect": {
       "finished": "https://example.com/finished",
       "cancelled": "https://example.com/cancelled"
-    },
-    "theme": {
-      "background-page": "#08111f",
-      "background-box": "#0f1f36",
-      "background-field": "#162b49",
-      "status-waiting": "#4b607a",
-      "status-done": "#38bdf8",
-      "price-down": "#22c55e",
-      "price-up": "#ef4444",
-      "outline-box": "#294566",
-      "outline-field": "#355578",
-      "text-primary": "#e8f3ff",
-      "text-secondary": "#9bb4d0"
     }
   },
   "balance": {
@@ -246,33 +209,6 @@ type Network = "dev" | "test" | "main";
 
 `dev` and `test` are displayed with a badge on the public payment page.
 
-## Theme Values
-
-All theme fields are optional. If `meta.theme` is omitted, the default theme is used. If `meta.theme` is provided, unsupported keys or non-hex values return `ERR_INVALID_REQUEST_00`.
-
-```ts
-type Theme = {
-  "background-page"?: string;
-  "background-box"?: string;
-  "background-field"?: string;
-  "status-waiting"?: string;
-  "status-done"?: string;
-  "price-down"?: string;
-  "price-up"?: string;
-  "outline-box"?: string;
-  "outline-field"?: string;
-  "text-primary"?: string;
-  "text-secondary"?: string;
-};
-```
-
-Hex colors may be 3 or 6 digit values:
-
-```txt
-#fff
-#ffffff
-```
-
 ## Status Fields
 
 ```ts
@@ -288,3 +224,5 @@ type PaymentStatus = {
 `paid` is set when the payment wallet balance is at least `amount.value`.
 
 `moved` is set when funds have been moved to the original `recipient`.
+
+

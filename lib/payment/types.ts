@@ -9,34 +9,6 @@ export interface PaymentAmount {
   change?: number;
 }
 
-export interface PaymentTheme {
-  "background-page": string;
-  "background-box": string;
-  "background-field": string;
-  "status-waiting": string;
-  "status-done": string;
-  "price-down": string;
-  "price-up": string;
-  "outline-box": string;
-  "outline-field": string;
-  "text-primary": string;
-  "text-secondary": string;
-}
-
-export const DEFAULT_PAYMENT_THEME: PaymentTheme = {
-  "background-page": "#f6f5f1",
-  "background-box": "#ffffff",
-  "background-field": "#fafaf9",
-  "status-waiting": "#d6d3d1",
-  "status-done": "#10b981",
-  "price-down": "#16a34a",
-  "price-up": "#dc2626",
-  "outline-box": "#d6d3d1",
-  "outline-field": "#d6d3d1",
-  "text-primary": "#0c0a09",
-  "text-secondary": "#78716c",
-};
-
 export interface PaymentMeta {
   name: string;
   description: string;
@@ -44,7 +16,6 @@ export interface PaymentMeta {
     finished?: string;
     cancelled?: string;
   };
-  theme?: PaymentTheme;
 }
 
 export interface PaymentStatus {

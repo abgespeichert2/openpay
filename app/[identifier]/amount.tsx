@@ -50,60 +50,33 @@ export function Amount({ amount, balanceSolana }: AmountProps) {
   const amountCaption = `The amount shown is currently valued at approximately ${displayNotional} and should be paid exactly as displayed because underpayments will keep this payment pending while any excess crypto sent cannot be refunded.`;
 
   return (
-    <div
-      className="border-b pb-3"
-      style={{
-        borderColor: "var(--payment-outline-box)",
-      }}
-    >
-      <p
-        className="text-[11px] uppercase"
-        style={{
-          color: "var(--payment-text-secondary)",
-        }}
-      >
+    <div className="border-b border-[var(--border-soft)] pb-3">
+      <p className="text-[11px] uppercase text-[var(--text-secondary)]">
         Amount
       </p>
       <div className="mt-0.5 flex items-baseline gap-2.5">
-        <p
-          className="text-2xl font-semibold"
-          style={{
-            color: "var(--payment-text-primary)",
-          }}
-        >
+        <p className="text-2xl font-semibold text-[var(--text-primary)]">
           {remainingSolanaText}
         </p>
         {alreadyPaidText ? (
-          <p
-            className="inline-flex items-center gap-1 text-base font-medium"
-            style={{
-              color: "var(--payment-text-primary)",
-            }}
-          >
+          <p className="inline-flex items-center gap-1 text-base font-medium text-[var(--text-primary)]">
             {alreadyPaidText}
             <Check className="h-3.5 w-3.5" aria-hidden="true" />
           </p>
         ) : null}
         {changeText ? (
           <p
-            className="text-2xl font-light"
-            style={{
-              color:
-                amount.change && amount.change < 0
-                  ? "var(--payment-price-down)"
-                  : "var(--payment-price-up)",
-            }}
+            className={
+              amount.change && amount.change < 0
+                ? "text-2xl font-light text-[var(--price-down)]"
+                : "text-2xl font-light text-[var(--price-up)]"
+            }
           >
             {changeText}
           </p>
         ) : null}
       </div>
-      <p
-        className="mt-1 text-[11px] leading-4"
-        style={{
-          color: "var(--payment-text-secondary)",
-        }}
-      >
+      <p className="mt-1 text-[11px] leading-4 text-[var(--text-secondary)]">
         {amountCaption}
       </p>
     </div>

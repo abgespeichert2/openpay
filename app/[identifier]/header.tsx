@@ -16,13 +16,7 @@ function NetworkBadge({ network }: { network: PaymentNetwork }) {
   }
 
   return (
-    <span
-      className="rounded-full px-2 py-1 text-[8px] font-semibold uppercase leading-none"
-      style={{
-        backgroundColor: "var(--payment-text-primary)",
-        color: "var(--payment-background-box)",
-      }}
-    >
+    <span className="rounded-full bg-[var(--text-primary)] px-2 py-1 text-[8px] font-semibold uppercase leading-none text-[var(--text-inverted)]">
       {network}
     </span>
   );
@@ -35,32 +29,19 @@ export function Header({ name, description, network, onCancel }: HeaderProps) {
         <button
           type="button"
           onClick={onCancel}
-          className="mb-3 inline-flex cursor-pointer items-center gap-1 text-xs transition-opacity hover:opacity-70"
-          style={{
-            color: "var(--payment-text-secondary)",
-          }}
+          className="mb-3 inline-flex cursor-pointer items-center gap-1 text-xs text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
         >
           <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
           Cancel
         </button>
       ) : null}
       <div className="flex items-center gap-2">
-        <h1
-          className="text-xl font-semibold"
-          style={{
-            color: "var(--payment-text-primary)",
-          }}
-        >
+        <h1 className="text-xl font-semibold text-[var(--text-primary)]">
           {name}
         </h1>
         <NetworkBadge network={network} />
       </div>
-      <p
-        className="mt-1 text-sm leading-5"
-        style={{
-          color: "var(--payment-text-primary)",
-        }}
-      >
+      <p className="mt-1 text-sm leading-5 text-[var(--text-primary)]">
         {description}
       </p>
     </header>

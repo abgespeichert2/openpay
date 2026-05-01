@@ -20,17 +20,29 @@ function normalizeStoredPayment(payment: StoredPayment): StoredPayment {
   const amount = payment.amount as StoredPayment["amount"] & {
     solana?: unknown;
   };
+  const normalizedMeta: StoredPayment["meta"] = {
+    name: payment.meta.name,
+    description: payment.meta.description,
+    ...(payment.meta.redirect ? { redirect: payment.meta.redirect } : {}),
+  };
 
   if (typeof amount.value === "number") {
-    return payment;
+    return {
+      ...payment,
+      meta: normalizedMeta,
+    };
   }
 
   if (typeof amount.solana !== "number") {
-    return payment;
+    return {
+      ...payment,
+      meta: normalizedMeta,
+    };
   }
 
   return {
     ...payment,
+    meta: normalizedMeta,
     amount: {
       value: amount.solana,
       notional: typeof amount.notional === "number" ? amount.notional : 0,

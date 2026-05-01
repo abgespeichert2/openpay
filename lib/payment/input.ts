@@ -5,14 +5,8 @@ import type {
   PaymentAmount,
   PaymentMeta,
   PaymentNetwork,
-  PaymentTheme,
 } from "@/lib/payment/types";
-import { DEFAULT_PAYMENT_THEME, PAYMENT_NETWORKS } from "@/lib/payment/types";
-
-const THEME_KEYS = Object.keys(DEFAULT_PAYMENT_THEME) as Array<
-  keyof PaymentTheme
->;
-const HEX_COLOR_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+import { PAYMENT_NETWORKS } from "@/lib/payment/types";
 
 export interface ParsedCreatePaymentInput {
   recipient: string;
@@ -71,58 +65,6 @@ function readOptionalNumberValue(
   }
 
   return readNumberValue(value, label);
-}
-
-function normalizeHexColor(value: string): string {
-  const color = value.trim().toLowerCase();
-
-  if (!HEX_COLOR_PATTERN.test(color)) {
-    throw new AppError("INVALID_REQUEST", "theme colors must be hex values.");
-  }
-
-  if (color.length === 4) {
-    const [, r, g, b] = color;
-
-    return `#${r}${r}${g}${g}${b}${b}`;
-  }
-
-  return color;
-}
-
-function readOptionalTheme(value: unknown): PaymentMeta["theme"] {
-  if (value === undefined) {
-    return undefined;
-  }
-
-  if (!isRecord(value)) {
-    throw new AppError("INVALID_REQUEST", "meta.theme must be an object.");
-  }
-
-  const theme: PaymentTheme = {
-    ...DEFAULT_PAYMENT_THEME,
-  };
-
-  for (const key of Object.keys(value)) {
-    if (!THEME_KEYS.includes(key as keyof PaymentTheme)) {
-      throw new AppError(
-        "INVALID_REQUEST",
-        `meta.theme.${key} is not supported.`,
-      );
-    }
-
-    const color = value[key];
-
-    if (typeof color !== "string") {
-      throw new AppError(
-        "INVALID_REQUEST",
-        `meta.theme.${key} must be a string.`,
-      );
-    }
-
-    theme[key as keyof PaymentTheme] = normalizeHexColor(color);
-  }
-
-  return theme;
 }
 
 function readOptionalRedirect(value: unknown): PaymentMeta["redirect"] {
@@ -272,7 +214,6 @@ export async function parseCreatePaymentRequest(
         1_000,
       ),
       redirect: readOptionalRedirect(meta.redirect),
-      theme: readOptionalTheme(meta.theme),
     },
     amount,
     expectedLamports,

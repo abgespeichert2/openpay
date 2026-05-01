@@ -1,21 +1,12 @@
 export function Credits() {
   return (
-    <footer
-      className="mt-3 px-2 text-center text-[11px] leading-4"
-      style={{
-        color: "var(--payment-text-secondary)",
-      }}
-    >
+    <footer className="mt-3 px-2 text-center text-[11px] leading-4 text-[var(--text-secondary)]">
       <p>Developed with ❤️ by abgespeichert</p>
       <a
         href="https://github.com/abgespeichert2/openpay"
         target="_blank"
         rel="noreferrer"
-        className="underline underline-offset-4 transition-opacity hover:opacity-70"
-        style={{
-          color: "var(--payment-text-secondary)",
-          textDecorationColor: "var(--payment-outline-field)",
-        }}
+        className="text-[var(--text-secondary)] underline decoration-[var(--border)] underline-offset-4 transition-colors hover:text-[var(--text-primary)]"
       >
         OpenSource on GitHub
       </a>
